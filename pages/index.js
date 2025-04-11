@@ -5,16 +5,22 @@ export default function Home() {
 
   const sendMessage = async () => {
     setStatus('Envoi en cours...');
-    const res = await fetch('/api/send-welcome-message', {
-      method: 'POST',
-    });
-    const data = await res.json();
-    if (res.ok) {
-      // Si la réponse est OK, on affiche le message de succès
-      setStatus('Message envoyé à Léa 💬');
-    } else {
-      // Si la réponse contient une erreur, on l'affiche
-      setStatus(`Erreur : ${data.message || 'Une erreur est survenue'}`);
+    try {
+      const res = await fetch('/api/send-welcome-message', {
+        method: 'POST',
+      });
+      
+      const data = await res.json();
+      if (res.ok) {
+        // Si la réponse est OK, on affiche le message de succès
+        setStatus('Message envoyé à Léa 💬');
+      } else {
+        // Si la réponse contient une erreur, on l’affiche
+        setStatus(`Erreur : ${data.message || 'Une erreur est survenue'}`);
+      }
+    } catch (error) {
+      // Capturer toute erreur réseau ou autre
+      setStatus(`Erreur de connexion : ${error.message}`);
     }
   };
 
