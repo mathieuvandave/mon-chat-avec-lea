@@ -5,6 +5,7 @@ export default async function handler(req, res) {
       res.status(200).json({ message: 'Message de bienvenue simulé' });
     } catch (error) {
       // Gère les erreurs internes si quelque chose se passe mal
+      console.error('Erreur interne:', error);
       res.status(500).json({ error: 'Erreur interne du serveur' });
     }
   } else {
@@ -12,4 +13,3 @@ export default async function handler(req, res) {
     res.status(405).json({ error: 'Méthode non autorisée' });
   }
 }
-
